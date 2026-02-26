@@ -34,7 +34,17 @@ pipeline {
                 sh "sudo docker images"
             }
         }
-        stage("Run COntainer"){
+        stage("Remove Older Container") {
+            steps {
+                sh "sudo docker rm -f ${CONTAINER_NAME}"
+            }
+            post {
+                failure {
+                    echo "Container is not Present...."
+                }
+            }
+        }
+        stage("Run Container"){
             steps{
                 sh "sudo docker run -it -d --name ${CONTAINER_NAME} -p ${CONTAINER_PORT}:${REQUEST_PORT} ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:latest"
             }
@@ -47,10 +57,12 @@ pipeline {
                 }
                 failure {
                     echo "Docker container is not deployed"
-                    sh """
-                    sudo docker rm -f ${CONTAINER_NAME}
-                    """
                 }
+            }
+        }
+        stage("Remove docker image locally") {
+            steps {
+                sh "sudo docker rmi -f ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${VERSION}"
             }
         }
     }
