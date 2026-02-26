@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKERHUB_USERNAME = 'sakit333'
         DOCKER_IMAGE = 'zepto-brocode'
+        VERSION = '$BUILD_ID'
     }
     stages {
         stage("docker version") {
@@ -13,7 +14,7 @@ pipeline {
         }
         stage("Build Docker Image") {
             steps {
-                sh "sudo docker build -t ${DOCKERHUB_USERNAME}/${DOCKER_IMAGE} ."
+                sh "sudo docker build -t ${DOCKERHUB_USERNAME}/${DOCKER_IMAGE}:${VERSION} ."
             }
         }
         stage("Docker Images"){
