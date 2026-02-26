@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Categories – Zepto</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">Zepto</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="category.html">Categories</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </header>
+
+  <section class="categories">
+    <h2>Popular Products</h2>
+    <div class="category-grid">
+      <div class="category-card">
+        <img src="https://source.unsplash.com/200x200/?apple" alt="Apple" />
+        <p>Apple - ₹120/kg</p>
+        <button onclick="viewProduct('Apple', 120, 'https://source.unsplash.com/200x200/?apple')">View</button>
+      </div>
+      <div class="category-card">
+        <img src="https://source.unsplash.com/200x200/?banana" alt="Banana" />
+        <p>Banana - ₹50/kg</p>
+        <button onclick="viewProduct('Banana', 50, 'https://source.unsplash.com/200x200/?banana')">View</button>
+      </div>
+      <div class="category-card">
+        <img src="https://source.unsplash.com/200x200/?milk" alt="Milk" />
+        <p>Milk - ₹60/litre</p>
+        <button onclick="viewProduct('Milk', 60, 'https://source.unsplash.com/200x200/?milk')">View</button>
+      </div>
+      <div class="category-card">
+        <img src="https://source.unsplash.com/200x200/?bread" alt="Bread" />
+        <p>Bread - ₹40</p>
+        <button onclick="viewProduct('Bread', 40, 'https://source.unsplash.com/200x200/?bread')">View</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Zepto. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
