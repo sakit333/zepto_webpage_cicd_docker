@@ -39,8 +39,12 @@ pipeline {
                 sh "sudo docker rm -f ${CONTAINER_NAME}"
             }
             post {
+                success {
+                    echo "Container is removed"
+                }
                 failure {
                     echo "Container is not Present...."
+                    sh "sudo docker run -it -d --name ${CONTAINER_NAME} -p ${CONTAINER_PORT}:${REQUEST_PORT} ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:latest"
                 }
             }
         }
@@ -56,7 +60,7 @@ pipeline {
                     echo "Docker continer deployed successfully"
                 }
                 failure {
-                    echo "Docker container is not deployed"
+                    echo "Docker container is alreay Running"
                 }
             }
         }
