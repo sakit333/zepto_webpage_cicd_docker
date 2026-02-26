@@ -6,6 +6,9 @@ pipeline {
         DOCKER_IMAGE = 'webapp'
         DOCKERHUB_REPO = 'zepto-brocode'
         VERSION = '$BUILD_ID'
+        CONTAINER_NAME = 'app'
+        CONTAINER_PORT = '8003'
+        REQUEST_PORT = '80'
     }
     stages {
         stage("docker version") {
@@ -29,6 +32,25 @@ pipeline {
         stage("Docker Images"){
             steps {
                 sh "sudo docker images"
+            }
+        }
+        stage("Run COntainer"){
+            steps{
+                sh "sudo docker run -it -d --name ${CONTAINER_NAME} -p ${CONTAINER_PORT}:${REQUEST_PORT} ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:latest"
+            }
+            post {
+                always {
+                    echo "Docker container from Server"
+                }
+                success {
+                    echo "Docker continer deployed successfully"
+                }
+                failure {
+                    echo "Docker container is not deployed"
+                    sh """
+                    sudo docker rm -f ${CONTAINER_NAME}
+                    """
+                }
             }
         }
     }
